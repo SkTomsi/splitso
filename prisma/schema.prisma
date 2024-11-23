@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  // Relations
+  createdBills Bill[]        @relation("BillCreator")
+  participants Participant[] // Link to participant profiles
+  paymentsMade Payment[]
+}
+
+model Bill {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  subtotal    Decimal    @db.Decimal(10, 2)
+  tax         Decimal    @db.Decimal(10, 2)
+  tip         Decimal    @db.Decimal(10, 2)
+  totalAmount Decimal    @db.Decimal(10, 2)
+  status      BillStatus @default(PENDING)
+  imageUrl    String? // URL to the uploaded bill image
+  inviteCode  String     @unique // Unique code for bill sharing
+  expiresAt   DateTime? // Optional expiration for the invite link
+  isOpen      Boolean    @default(true) // Whether new participants can join
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  creatorId    String
+  creator      User          @relation("BillCreator", fields: [creatorId], references: [id])
+  items        BillItem[]
+  participants Participant[]
+  splits       BillSplit[] // For handling tax/tip splits
+  invites      BillInvite[] // Track individual invites
+
+  @@index([creatorId])
+  @@index([inviteCode])
+}
+
+model BillInvite {
+  id        String       @id @default(cuid())
+  email     String // Email address of invitee
+  status    InviteStatus @default(PENDING)
+  token     String       @unique // Unique token for this specific invite
+  expiresAt DateTime
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // Relations
+  billId        String
+  bill          Bill         @relation(fields: [billId], references: [id], onDelete: Cascade)
+  participantId String? // Will be set when invite is accepted
+  participant   Participant? @relation(fields: [participantId], references: [id])
+
+  @@unique([billId, email])
+  @@index([billId])
+  @@index([token])
+  @@index([email])
+}
+
+model Participant {
+  id          String            @id @default(cuid())
+  name        String // Name of the participant
+  email       String? // Optional email for non-registered users
+  phoneNumber String? // Optional phone number
+  status      ParticipantStatus @default(PENDING)
+  amountOwed  Decimal           @db.Decimal(10, 2)
+  joinedAt    DateTime          @default(now()) // When they joined the bill
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  userId     String? // Optional - participant might not have an account yet
+  user       User?        @relation(fields: [userId], references: [id])
+  billId     String
+  bill       Bill         @relation(fields: [billId], references: [id], onDelete: Cascade)
+  itemSplits ItemSplit[] // Items this participant is responsible for
+  billSplits BillSplit[] // Tax/tip splits
+  payments   Payment[]
+  invite     BillInvite[] // Link to the invite if they joined through one
+
+  @@unique([billId, email]) // Prevent duplicate participants with same email in a bill
+  @@unique([billId, userId]) // Prevent duplicate participants with same user in a bill
+  @@index([userId])
+  @@index([billId])
+  @@index([email])
+}
+
+model BillItem {
+  id         String   @id @default(cuid())
+  name       String
+  quantity   Int
+  price      Decimal  @db.Decimal(10, 2) // Price per unit
+  totalPrice Decimal  @db.Decimal(10, 2) // quantity * price
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  billId     String
+  bill       Bill        @relation(fields: [billId], references: [id], onDelete: Cascade)
+  itemSplits ItemSplit[] // How this item is split among participants
+
+  @@index([billId])
+}
+
+model ItemSplit {
+  id         String   @id @default(cuid())
+  percentage Decimal  @db.Decimal(10, 2) // How many units of the item (can be fractional)
+  amount     Decimal  @db.Decimal(10, 2) // Amount this participant owes for this item
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  itemId        String
+  item          BillItem    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@unique([itemId, participantId])
+  @@index([itemId])
+  @@index([participantId])
+}
+
+model BillSplit {
+  id        String   @id @default(cuid())
+  taxAmount Decimal  @db.Decimal(10, 2)
+  tipAmount Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  billId        String
+  bill          Bill        @relation(fields: [billId], references: [id], onDelete: Cascade)
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@unique([billId, participantId])
+  @@index([billId])
+  @@index([participantId])
+}
+
+model Payment {
+  id        String        @id @default(cuid())
+  amount    Decimal       @db.Decimal(10, 2)
+  status    PaymentStatus @default(PENDING)
+  notes     String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Relations
+  userId        String? // Optional - payment might be recorded for non-user
+  user          User?       @relation(fields: [userId], references: [id])
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([participantId])
+}
+
+enum BillStatus {
+  PENDING
+  PARTIALLY_PAID
+  PAID
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  DECLINED
+}
+
+enum ParticipantStatus {
+  PENDING // Initial state when added to bill
+  ACCEPTED // Participant has acknowledged their portion
+  DECLINED // Participant has declined to pay
+  PAID // Participant has paid their full share
+}
+
+enum InviteStatus {
+  PENDING // Invite sent but not acted upon
+  ACCEPTED // Invite accepted and participant joined
+  DECLINED // Invite declined
+  EXPIRED // Invite expired without action
+  CANCELLED // Invite cancelled by bill creator
+}
