@@ -1,4 +1,4 @@
-# Bill Splitting App - Product Requirements Document
+# Bill Splitting App
 
 ## Project Overview
 
@@ -108,31 +108,6 @@ This project involves developing a bill-splitting app with AI integration to sim
 - Handle cases of partial payments
 - Provide mechanisms for manually marking payments as complete in case of external transactions
 
-## Project Structure
-
-```
-/src
-  /components
-    - FileUpload.tsx         // Component for uploading bills
-    - ItemTable.tsx          // Editable item table
-    - PaymentSummary.tsx     // Summary component for payment details
-    - StatusTable.tsx        // Final status table
-  /pages
-    - index.tsx              // Landing page
-    - item-list.tsx          // Item List page
-    - pay.tsx                // Payment summary page
-    - status.tsx             // Final status page
-  /utils
-    - aiProcessor.ts         // Logic for AI model integration
-    - calculationUtils.ts    // Helper functions for payment calculations
-  /styles
-    - globals.css           // TailwindCSS configurations
-  /services
-    - emailService.ts       // Logic for email notifications
-    - db.ts                 // Drizzle database instance and schema
-  /types
-    - item.ts              // Type definitions for items and participants
-```
 
 ## Low-Level Documentation
 
