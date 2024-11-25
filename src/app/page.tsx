@@ -8,9 +8,9 @@ export default function Home() {
 			<Image
 				src={HeroImage}
 				alt="hero"
-				className="h-[400px] object-cover object-bottom"
+				className="h-[50%] object-cover object-bottom"
 			/>
-			<div className="flex flex-col gap-4 px-2">
+			<div className="flex flex-col gap-4 px-5">
 				<h1 className="font-bold text-4xl tracking-tighter">
 					No more IOU stress. Just fair, instant settlements.
 				</h1>

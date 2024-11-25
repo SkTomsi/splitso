@@ -32,7 +32,7 @@ export default function WaitlistBox() {
 	return (
 		<>
 			{loaded && (
-				<div className="flex w-full flex-col items-center gap-2">
+				<div className="flex w-full flex-col items-center gap-2 px-5">
 					<p>Coming Soon!</p>
 					{/* biome-ignore lint/security/noDangerouslySetInnerHtml: as per docs */}
 					<Script type="" dangerouslySetInnerHTML={{ __html: cssLoader }} />
