@@ -33,7 +33,7 @@ export default function RootLayout({
 			<body
 				className={` ${geistSans.className} min-h-screen min-w-screen antialiased`}
 			>
-				<div className="mx-auto flex h-screen w-[568px] flex-col">
+				<div className="mx-auto flex h-screen w-full max-w-[568px] flex-col">
 					<Providers>
 						<main className="h-full">{children}</main>
 					</Providers>
