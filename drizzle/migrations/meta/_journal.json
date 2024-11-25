@@ -1,13 +1,13 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1732458241403,
-      "tag": "0000_curvy_vulcan",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1732458241403,
+			"tag": "0000_curvy_vulcan",
+			"breakpoints": true
+		}
+	]
 }
