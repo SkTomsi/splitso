@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-// biome-ignore lint/style/noNamespaceImport: <explanation>
 import * as React from "react";
 
 const Card = React.forwardRef<

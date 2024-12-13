@@ -36,7 +36,7 @@
 			},
 			"style": {
 				"noNonNullAssertion": "warn",
-				"noNamespaceImport": "warn",
+				// "noNamespaceImport": "warn",
 				"noNamespace": "warn",
 				"useBlockStatements": "warn",
 				"useShorthandArrayType": "warn"
@@ -57,6 +57,7 @@
 			"nursery": {
 				"useSortedClasses": {
 					"level": "warn",
+					"fix": "safe",
 					"options": {
 						"attributes": ["classList"],
 						"functions": ["clsx", "cva", "tw", "cn"]

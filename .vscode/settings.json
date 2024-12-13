@@ -4,6 +4,7 @@
 		"source.fixAll": "always",
 		"source.organizeImports": "always"
 	},
+	"editor.defaultFormatter": "biomejs.biome",
 	"files.associations": {
 		"*.css": "tailwindcss"
 	},

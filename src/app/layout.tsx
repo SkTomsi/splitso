@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type React from "react";
 
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/providers/NextTheme";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -22,7 +24,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<link
 					rel="icon"
@@ -30,14 +32,22 @@ export default function RootLayout({
 				/>
 				<script src="https://getlaunchlist.com/js/widget.js" defer />
 			</head>
+
 			<body
-				className={` ${geistSans.className} min-h-screen min-w-screen antialiased`}
+				className={` ${geistSans.className} min-h-dvh min-w-screen antialiased`}
 			>
-				<div className="mx-auto flex h-screen w-full max-w-[568px] flex-col">
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="light"
+					// enableSystem
+				>
 					<Providers>
-						<main className="h-full">{children}</main>
+						<div className="mx-auto flex h-dvh w-full max-w-[568px] flex-col">
+							<main className="h-full">{children}</main>
+							<Toaster richColors position="top-center" />
+						</div>
 					</Providers>
-				</div>
+				</ThemeProvider>
 			</body>
 		</html>
 	);
