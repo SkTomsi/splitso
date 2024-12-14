@@ -1,10 +1,10 @@
 "use server";
 
 import { type LoginSchema, SignUpSchema } from "@/lib/zod/auth.validator";
-import { signIn, signOut } from "@/server/auth/auth";
+import { signIn, signOut } from "@/server/auth";
 import { db } from "@/server/db";
 import { users } from "@/server/db/schema";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import type { z } from "zod";
 

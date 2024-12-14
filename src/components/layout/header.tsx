@@ -1,4 +1,4 @@
-import { auth } from "@/server/auth/auth";
+import { auth } from "@/server/auth";
 import { Bell } from "lucide-react";
 import { redirect } from "next/navigation";
 import { UserButton } from "../auth/user-button";

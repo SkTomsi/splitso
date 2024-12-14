@@ -1,5 +1,5 @@
 import { SignOutAction } from "@/actions/auth.actions";
-import { auth } from "@/server/auth/auth";
+import { auth } from "@/server/auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import {

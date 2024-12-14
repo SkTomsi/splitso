@@ -1,5 +1,5 @@
 import { LoginSchema } from "@/lib/zod/auth.validator";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";

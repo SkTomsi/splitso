@@ -1,10 +1,13 @@
 import { Providers } from "@/providers";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type React from "react";
+import { extractRouterConfig } from "uploadthing/server";
 
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/providers/NextTheme";
+import { ourFileRouter } from "./api/uploadthing/core";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -41,6 +44,15 @@ export default function RootLayout({
 					defaultTheme="light"
 					// enableSystem
 				>
+					<NextSSRPlugin
+						/**
+						 * The `extractRouterConfig` will extract **only** the route configs
+						 * from the router to prevent additional information from being
+						 * leaked to the client. The data passed to the client is the same
+						 * as if you were to fetch `/api/uploadthing` directly.
+						 */
+						routerConfig={extractRouterConfig(ourFileRouter)}
+					/>
 					<Providers>
 						<div className="mx-auto flex h-dvh w-full max-w-[568px] flex-col">
 							<main className="h-full">{children}</main>

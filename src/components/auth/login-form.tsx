@@ -2,6 +2,7 @@
 import { CredentialsAction } from "@/actions/auth.actions";
 import { LoginSchema } from "@/lib/zod/auth.validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -16,7 +17,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { FormError } from "./form-status";
-import { Loader2 } from "lucide-react";
 
 interface IFormStatus {
 	message?: string;

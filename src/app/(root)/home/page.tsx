@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { auth } from "@/server/auth/auth";
+import { auth } from "@/server/auth";
 import { ReceiptText, ScanLine } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -40,7 +40,6 @@ export default async function HomePage() {
 						</Button>
 					</div>
 				</Card>
-				<Card className="flex w-full flex-col items-center gap-4 rounded-3xl border border-zinc-200/80 py-8 shadow-[0px_10px_20px_0px_rgba(85,22,217,0.05)]" />
 			</div>
 		</div>
 	);
