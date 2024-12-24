@@ -1,4 +1,4 @@
-import { pgTable, unique } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, unique } from "drizzle-orm/pg-core";
 
 export const users = pgTable(
 	"users",
@@ -22,3 +22,13 @@ export const users = pgTable(
 		uniqueEmail: unique().on(t.email),
 	}),
 );
+
+export const invites = pgTable("invites", {
+	id: text()
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID())
+		.notNull(),
+	userId: text().notNull(),
+	code: text().notNull().unique(),
+	createdAt: timestamp().defaultNow().notNull(),
+});

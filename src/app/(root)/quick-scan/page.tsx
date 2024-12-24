@@ -1,8 +1,8 @@
-import { ReceiptScanner } from "@/components/quick-scan/receipt-scanner";
+import { ReceiptScanner } from "@/features/quick-scan/components/receipt-scanner";
 
 export default function Page() {
 	return (
-		<div className="mt-20 flex h-full flex-col gap-10">
+		<div className="flex h-full flex-col gap-6">
 			<ReceiptScanner />
 		</div>
 	);

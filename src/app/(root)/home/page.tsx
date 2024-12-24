@@ -13,7 +13,7 @@ export default async function HomePage() {
 	}
 
 	return (
-		<div className="mt-8 flex w-full flex-col items-center gap-10 px-4">
+		<div className="mt-6 flex w-full flex-col items-center gap-10 px-4">
 			<h1 className="w-full text-left font-semibold text-3xl tracking-tighter">{`Hello, ${session.user.name ?? "Guest"}`}</h1>
 			{/* <div className="w-full overflow-hidden">{JSON.stringify(session)}</div> */}
 			<div className="w-full">

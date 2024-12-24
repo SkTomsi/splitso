@@ -31,24 +31,24 @@ export async function ScanReceiptAction(
       - Date of the transaction
       - Bill Total
       - GST Total
-      - Tax Total
 
       
-      Only respond with valid JSON in this exact format:
+      Only respond IN THIS VALID JSON FORMAT:
+
       {
        restaurantName: "string",
        billTotal: number,
        gstTotal: number,
-       taxTotal: number,
        date: "ISO date string",
        address: "string",
        items: [  
             {
                 "amount": number,
+				"quantity": number,
                 "date": "ISO date string",
-                "description": "string",
-                "merchantName": "string",
+                "name": "string",
                 "category": "string"
+				"itemTotal": number (amount * quantity)
             }
         ]
       }
