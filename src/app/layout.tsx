@@ -54,7 +54,7 @@ export default function RootLayout({
 						routerConfig={extractRouterConfig(ourFileRouter)}
 					/>
 					<Providers>
-						<div className="mx-auto flex h-dvh w-full max-w-[568px] flex-col border-muted border-x">
+						<div className="mx-auto flex h-dvh w-full max-w-[420px] flex-col border-muted border-x">
 							<main className="h-full">{children}</main>
 							<Toaster richColors position="top-center" />
 						</div>

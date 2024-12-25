@@ -40,7 +40,7 @@ export function BillUploadCard({
 							<Image
 								src={file.url}
 								alt={file.name}
-								className="max-h-[300px] rounded-2xl object-contain"
+								className="max-h-[390px] rounded-2xl object-contain"
 								width={200}
 								height={200}
 							/>
@@ -68,7 +68,7 @@ export function BillUploadCard({
 					))}
 				</div>
 			) : (
-				<div className="h-[400px] w-[400px] animate-pulse rounded-2xl bg-gray-200" />
+				<div className="h-[400px] w-full animate-pulse rounded-2xl bg-gray-200" />
 			)}
 		</>
 	);

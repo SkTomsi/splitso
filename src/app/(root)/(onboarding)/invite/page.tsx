@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function InvitePage() {
 	return (
-		<div className="flex h-full w-full flex-col items-center justify-center px-14">
-			<Card className="flex h-fit w-full flex-col gap-4 border-none p-8 shadow-none">
+		<div className="flex h-full w-full flex-col items-center px-4 py-8">
+			<Card className="flex h-full w-full flex-col justify-between gap-4 border-none shadow-none">
 				<Image
 					src={IMAGES.inviteBanner}
 					alt="Invite Banner"

@@ -1,5 +1,5 @@
 import LayoutWithNav from "@/components/layout/layout-with-nav";
-import InviteBadge from "@/features/home/invite-badge";
+import InviteBadge from "@/features/invite/components/invite-badge";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
