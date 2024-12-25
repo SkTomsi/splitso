@@ -1,8 +1,14 @@
+"use client";
+
 import GoogleLogin from "@/components/auth/google-login";
 import SignupForm from "@/components/auth/signup-form";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function SignInPage() {
+	const searchParams = useSearchParams();
+
+	const code = searchParams.get("code");
 	return (
 		<div className="padded-container flex h-full w-full flex-col gap-10">
 			<div className="flex flex-col gap-1">
@@ -14,7 +20,7 @@ export default function SignInPage() {
 				</p>
 			</div>
 
-			<GoogleLogin />
+			<GoogleLogin code={code} />
 			<div className="flex items-center gap-4">
 				<div className="h-1 w-full border-b" />
 				<div>Or</div>

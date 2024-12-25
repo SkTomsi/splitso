@@ -6,8 +6,8 @@ export const users = pgTable(
 		id: t
 			.text()
 			.primaryKey()
-			.$defaultFn(() => crypto.randomUUID())
-			.notNull(),
+			.notNull()
+			.$defaultFn(() => crypto.randomUUID()),
 		name: t.text(),
 		username: t.text().notNull(),
 		email: t.text().notNull(),
@@ -28,7 +28,28 @@ export const invites = pgTable("invites", {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID())
 		.notNull(),
-	userId: text().notNull(),
+	userId: text()
+		.notNull()
+		.references(() => users.id),
 	code: text().notNull().unique(),
 	createdAt: timestamp().defaultNow().notNull(),
 });
+
+export const friends = pgTable(
+	"friends",
+	{
+		id: text()
+			.primaryKey()
+			.$defaultFn(() => crypto.randomUUID())
+			.notNull(),
+		userId: text()
+			.notNull()
+			.references(() => users.id),
+		friendId: text()
+			.notNull()
+			.references(() => users.id),
+	},
+	(t) => ({
+		uniqueUserFriend: unique("unique_user_friend").on(t.userId, t.friendId),
+	}),
+);

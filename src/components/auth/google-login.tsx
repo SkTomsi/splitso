@@ -5,10 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 
-export default function GoogleLogin() {
+export default function GoogleLogin({ code }: { code?: string | null }) {
 	const { mutate: handleSignIn, isPending } = useMutation({
 		mutationFn: async () => {
-			await SignInAction();
+			await SignInAction(code);
 		},
 		onMutate: () => {
 			toast.loading("Signing you in...");

@@ -47,14 +47,14 @@ export const UserSignup = async (data: unknown) => {
 	}
 };
 
-export const SignInAction = async () => {
+export const SignInAction = async (code: string | null | undefined) => {
 	await signIn("google", {
-		redirectTo: "/home",
+		redirectTo: code ? `/join/${code}` : "/home",
 	});
 };
 export const SignOutAction = async () => {
 	await signOut({
-		redirectTo: "/home",
+		redirectTo: "/login",
 	});
 };
 
