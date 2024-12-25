@@ -4,8 +4,9 @@ import GoogleLogin from "@/components/auth/google-login";
 import SignupForm from "@/components/auth/signup-form";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function SignInPage() {
+function SignUp() {
 	const searchParams = useSearchParams();
 
 	const code = searchParams.get("code");
@@ -36,5 +37,13 @@ export default function SignInPage() {
 				</p>
 			</div>
 		</div>
+	);
+}
+
+export default function SignUpPage() {
+	return (
+		<Suspense>
+			<SignUp />
+		</Suspense>
 	);
 }
