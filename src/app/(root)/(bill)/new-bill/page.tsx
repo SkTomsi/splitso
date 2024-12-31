@@ -8,15 +8,19 @@ import { Suspense } from "react";
 function NewBill() {
 	const { scannedBill } = useBillStore();
 
-	console.log(scannedBill);
-	console.log("HELLOOO FROM NEW BILLLL");
-
 	const loading = scannedBill?.loading;
 	const data = scannedBill?.data;
 
 	return (
 		<div className="flex h-full w-full flex-col gap-2 bg-zinc-50 px-4 py-2">
-			<h1 className="py-2 font-bold text-xl tracking-tight">New Bill</h1>
+			<div className="flex w-full flex-col gap-1 py-4">
+				<h1 className="font-bold text-xl tracking-tight">
+					We have scanned your bill for you!
+				</h1>
+				<p className="text-muted-foreground text-sm">
+					edit your bill, add tags, and share it with your friends
+				</p>
+			</div>
 			{loading && <NewBillSkeleton />}
 			{!loading && <NewBillDetails bill={data} />}
 		</div>
