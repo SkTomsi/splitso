@@ -2,11 +2,14 @@
 
 import { type LoginSchema, SignUpSchema } from "@/lib/zod/auth.validator";
 import { signIn, signOut } from "@/server/auth";
-import { db } from "@/server/db";
-import { users } from "@/server/db/schema";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import type { z } from "zod";
+import {
+	createUser,
+	findUserByEmail,
+	findUserByUsername,
+} from "./queries/auth.queries";
 
 export const UserSignup = async (data: unknown) => {
 	const result = await SignUpSchema.safeParseAsync(data);
@@ -15,29 +18,22 @@ export const UserSignup = async (data: unknown) => {
 		return { message: "Bad Request", status: false };
 	}
 
-	const userExists = await db.query.users.findFirst({
-		where: (t, { eq }) => eq(t.email, result.data.email),
-	});
+	const userExists = await findUserByEmail(result.data.email);
 
 	const hashedPwd = await bcrypt.hash(result.data.password, 10);
+
 	if (userExists) {
 		return { message: "User already exists with this email", status: false };
 	}
 
-	const usernameExists = await db.query.users.findFirst({
-		where: (t, { eq }) => eq(t.username, result.data.username),
-	});
+	const usernameExists = await findUserByUsername(result.data.username);
 
 	if (usernameExists) {
 		return { message: "Username already exists", status: false };
 	}
 
 	try {
-		await db.insert(users).values({
-			username: result.data.username,
-			email: result.data.email,
-			password: hashedPwd,
-		});
+		await createUser(result.data, hashedPwd);
 
 		return { message: "Account created successfully", status: true };
 	} catch (_error) {

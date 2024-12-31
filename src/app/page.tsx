@@ -1,5 +1,5 @@
 import HeroImage from "@/app/heroImage.webp";
-import WaitlistBox from "@/components/waitlist-box";
+import GoogleLogin from "@/components/auth/google-login";
 import Image from "next/image";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
 		<div className="flex h-full w-full flex-col items-center justify-between gap-10 pb-12 font-[family-name:var(--font-geist-sans)]">
 			<Image
 				src={HeroImage}
-				alt="hero"
+				alt="hero image"
 				className="h-[50%] object-cover object-bottom"
 			/>
 			<div className="flex flex-col gap-4 px-5">
@@ -19,7 +19,8 @@ export default function Home() {
 					share instantly.
 				</p>
 			</div>
-			<WaitlistBox />
+			<GoogleLogin />
+			{/* <WaitlistBox /> */}
 		</div>
 	);
 }

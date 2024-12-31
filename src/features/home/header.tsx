@@ -20,7 +20,7 @@ export default async function Header() {
 				<BackButton />
 
 				<Link href={"/home"}>
-					<h1 className="font-bold text-xl tracking-tighter">splitfa.st</h1>
+					<h1 className="font-bold text-base tracking-tighter">splitfa.st</h1>
 				</Link>
 			</div>
 			<div className="flex items-center gap-4">

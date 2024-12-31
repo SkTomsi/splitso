@@ -1,69 +1,69 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1732458241403,
-      "tag": "0000_curvy_vulcan",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1732896907894,
-      "tag": "0001_cold_kitty_pryde",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1733136103930,
-      "tag": "0002_lovely_terrax",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1733136325874,
-      "tag": "0003_curly_goliath",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1733147903383,
-      "tag": "0004_public_lady_mastermind",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1735113472804,
-      "tag": "0005_lonely_changeling",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1735148649349,
-      "tag": "0006_steady_slayback",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1735149082956,
-      "tag": "0007_overconfident_fantastic_four",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1735149633151,
-      "tag": "0008_friendly_menace",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1732458241403,
+			"tag": "0000_curvy_vulcan",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1732896907894,
+			"tag": "0001_cold_kitty_pryde",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1733136103930,
+			"tag": "0002_lovely_terrax",
+			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "7",
+			"when": 1733136325874,
+			"tag": "0003_curly_goliath",
+			"breakpoints": true
+		},
+		{
+			"idx": 4,
+			"version": "7",
+			"when": 1733147903383,
+			"tag": "0004_public_lady_mastermind",
+			"breakpoints": true
+		},
+		{
+			"idx": 5,
+			"version": "7",
+			"when": 1735113472804,
+			"tag": "0005_lonely_changeling",
+			"breakpoints": true
+		},
+		{
+			"idx": 6,
+			"version": "7",
+			"when": 1735148649349,
+			"tag": "0006_steady_slayback",
+			"breakpoints": true
+		},
+		{
+			"idx": 7,
+			"version": "7",
+			"when": 1735149082956,
+			"tag": "0007_overconfident_fantastic_four",
+			"breakpoints": true
+		},
+		{
+			"idx": 8,
+			"version": "7",
+			"when": 1735149633151,
+			"tag": "0008_friendly_menace",
+			"breakpoints": true
+		}
+	]
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useInviteJoin } from "../hooks/join-invite";
 import { ArrowRight } from "lucide-react";
+import { useInviteJoin } from "../hooks/join-invite";
 
 export default function JoinButton({ code }: { code: string }) {
 	const { mutate: joinInvite } = useInviteJoin();

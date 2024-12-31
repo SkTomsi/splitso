@@ -1,27 +1,22 @@
+"use client";
+
 import { ScanReceiptAction } from "@/actions/scan.actions";
-import { useMutation } from "@tanstack/react-query";
+import type { Bill } from "@/features/bills/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { ClientUploadedFileData } from "uploadthing/types";
 
-export function useScanner() {
+export function useAiScan() {
+	const queryClient = useQueryClient();
+
 	return useMutation({
+		mutationKey: ["scan-bill"],
 		mutationFn: async ({
-			files,
-		}: { files: ClientUploadedFileData<{ uploadedBy: string }>[] }) => {
-			if (files?.length === 0) {
-				throw Error("Uh oh! Looks like you forgot to upload a bill");
-			}
-
+			billImageUrl,
+		}: {
+			billImageUrl: string;
+		}): Promise<Bill | null> => {
 			try {
-				toast.info(
-					"scanning your bill using our skibidi AI, please wait this might take 10-30s ....",
-				);
-
-				const result = await ScanReceiptAction(files);
-
-				if (!result) {
-					return { message: "Something went wrong", status: false };
-				}
+				const result = await ScanReceiptAction(billImageUrl);
 
 				return result;
 			} catch (error) {
@@ -30,11 +25,12 @@ export function useScanner() {
 				throw new Error("Something went wrong");
 			}
 		},
-		onSuccess: () => {
-			toast.success("Successfully scanned your bill, redirecting...");
-		},
 		onError: ({ message }) => {
 			toast.error(message ? message : "Something went wrong");
+		},
+		onSuccess: async (data) => {
+			toast.success("Bill scanned successfully");
+			await queryClient.setQueryData(["bill-scan", 1], data);
 		},
 	});
 }

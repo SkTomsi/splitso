@@ -6,7 +6,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<div className="relative flex h-full w-full flex-col ">
 			<InviteBadge />
 			<LayoutWithNav>
-				<div className="h-[calc(100vh-64px)] w-full px-2">{children}</div>
+				<div className="h-[calc(100vh-64px)] w-full bg-neutral-50">
+					{children}
+				</div>
 			</LayoutWithNav>
 		</div>
 	);

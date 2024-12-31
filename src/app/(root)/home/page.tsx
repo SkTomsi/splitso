@@ -14,7 +14,7 @@ export default async function HomePage() {
 
 	return (
 		<div className="mt-6 flex w-full flex-col items-center gap-10 px-4">
-			<h1 className="w-full text-left font-semibold text-3xl tracking-tighter">{`Hello, ${session.user.name ?? "Guest"}`}</h1>
+			<h1 className="w-full text-left font-semibold text-xl tracking-tighter">{`Hello, ${session.user.name ?? "Guest"}`}</h1>
 			{/* <div className="w-full overflow-hidden">{JSON.stringify(session)}</div> */}
 			<div className="w-full">
 				<Card className="flex w-full flex-col items-center gap-4 rounded-3xl border border-zinc-200/80 py-8 shadow-[0px_10px_20px_0px_rgba(85,22,217,0.05)]">

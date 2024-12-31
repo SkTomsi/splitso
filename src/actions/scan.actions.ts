@@ -1,15 +1,13 @@
 "use server";
 
+import type { Bill, BillItem } from "@/features/bills/types";
 import { auth } from "@/server/auth";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { UTApi } from "uploadthing/server";
-import type { ClientUploadedFileData } from "uploadthing/types";
 
 const utapi = new UTApi({});
 
-export async function ScanReceiptAction(
-	files: ClientUploadedFileData<{ uploadedBy: string }>[],
-) {
+export async function ScanReceiptAction(billImageUrl: string): Promise<Bill> {
 	const session = await auth();
 
 	if (!session?.user) {
@@ -64,9 +62,7 @@ export async function ScanReceiptAction(
       If its not a recipt, return an empty object
     `;
 
-	const image = files[0].url;
-
-	const buffer = await fetch(image).then((res) => res.arrayBuffer());
+	const buffer = await fetch(billImageUrl).then((res) => res.arrayBuffer());
 
 	try {
 		const result = await model.generateContent([
@@ -83,8 +79,33 @@ export async function ScanReceiptAction(
 			throw new Error("Something went wrong");
 		}
 
-		return result.response.text();
+		const text = result.response.text();
+
+		const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+
+		try {
+			const data = JSON.parse(cleanedText);
+
+			const billData: Bill = {
+				address: data.address,
+				billTotal: data.billTotal,
+				date: data.date,
+				gstTotal: data.gstTotal,
+				items: data.items.map((item: BillItem) => ({
+					amount: item.amount,
+					itemTotal: item.amount * item.quantity,
+					name: item.name,
+					quantity: item.quantity,
+				})),
+				restaurantName: data.restaurantName,
+			};
+
+			return billData;
+		} catch (_error) {
+			throw new Error("Something went wrong");
+		}
 	} catch (error) {
+		// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 		console.log(error);
 		throw new Error("Something went wrong");
 	}
@@ -103,6 +124,7 @@ export async function DeleteReceiptAction({ fileKey }: { fileKey: string }) {
 
 		return true;
 	} catch (error) {
+		// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 		console.log(error);
 		throw new Error("Something went wrong");
 	}
